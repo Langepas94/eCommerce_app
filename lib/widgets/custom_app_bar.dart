@@ -16,7 +16,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Container(color: Colors.black,
       padding: EdgeInsets.symmetric(
         horizontal: 20,
-        vertical: 10
+        vertical: 2
       ),
       child: Text(
           title,
