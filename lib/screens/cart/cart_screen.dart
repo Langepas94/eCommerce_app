@@ -19,7 +19,7 @@ class CartScreen extends StatelessWidget {
       appBar: CustomAppBar(
         title: 'Cart'
       ),
-      bottomNavigationBar: CustomNavBar(),
+      // bottomNavigationBar: CustomNavBar(),
     );
   }
 }
