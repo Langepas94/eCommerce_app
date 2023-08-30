@@ -32,7 +32,7 @@ class CatalogScreen extends StatelessWidget {
       bottomNavigationBar: CustomNavBar(),
       body: GridView.builder(
         padding: const EdgeInsets.symmetric(
-          horizontal: 8.0, 
+          horizontal: 4.0, 
           vertical: 16.0
           ),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.15), 
