@@ -1,4 +1,5 @@
 
+import 'package:ecommerce_app/models/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/screens/screens.dart';
 
@@ -17,7 +18,7 @@ class AppRouters {
     case WhislListScreen.routeName: 
     return WhislListScreen.route();
     case CatalogScreen.routeName:
-    return CatalogScreen.route();
+    return CatalogScreen.route(category: settings.arguments as Category);
     default: return _errorRoute();
   }
  }

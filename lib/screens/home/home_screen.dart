@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: CustomNavBar(),
       appBar: CustomAppBar(
-        title: 'шестерочка'
+        title: 'Шестерочка'
       ),
       body: Column(
         children: [
@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
               options: CarouselOptions(
                 aspectRatio: 1.5,
                 viewportFraction: 0.9,
-                enlargeCenterPage: false,
+                enlargeCenterPage: true,
                 enlargeStrategy: CenterPageEnlargeStrategy.height
               ),
               items: Category.categories.map((category) => HeroCarouselCard(category: category)).toList(),
