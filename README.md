@@ -1,6 +1,6 @@
 # ecommerce_app
 
-Ecommerce app
+In progress...
 
 ## Getting Started
 
