@@ -23,26 +23,28 @@ class HomeScreen extends StatelessWidget {
       appBar: CustomAppBar(
         title: 'Шестерочка'
       ),
-      body: Column(
-        children: [
-          Container(
-            child: CarouselSlider(
-              options: CarouselOptions(
-                aspectRatio: 1.5,
-                viewportFraction: 0.9,
-                enlargeCenterPage: true,
-                enlargeStrategy: CenterPageEnlargeStrategy.height
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              child: CarouselSlider(
+                options: CarouselOptions(
+                  aspectRatio: 1.5,
+                  viewportFraction: 0.9,
+                  enlargeCenterPage: true,
+                  enlargeStrategy: CenterPageEnlargeStrategy.height
+                ),
+                items: Category.categories.map((category) => HeroCarouselCard(category: category)).toList(),
               ),
-              items: Category.categories.map((category) => HeroCarouselCard(category: category)).toList(),
             ),
-          ),
-          SectionTitle(
-            title: 'Recommend'),
-            ProductCarousel(products: Product.products.where((product) => product.isRecommended).toList()),
-               SectionTitle(
-            title: 'Most Popular'),
-            ProductCarousel(products: Product.products.where((product) => product.isPopular).toList()),
-        ],
+            SectionTitle(
+              title: 'Recommend'),
+              ProductCarousel(products: Product.products.where((product) => product.isRecommended).toList()),
+                 SectionTitle(
+              title: 'Most Popular'),
+              ProductCarousel(products: Product.products.where((product) => product.isPopular).toList()),
+          ],
+        ),
       ),
     );
   }
