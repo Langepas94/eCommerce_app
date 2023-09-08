@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/widgets/widgets.dart';
-
+import '../../models/cart_model.dart';
 import '../../models/product_model.dart';
 
 class CartScreen extends StatelessWidget {
@@ -17,15 +17,13 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'Cart'),
-      bottomNavigationBar: 
-      BottomAppBar(
+      bottomNavigationBar: BottomAppBar(
         color: Colors.black,
         child: Container(
           height: 70,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-             
               ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.white),
                   onPressed: () {},
@@ -48,13 +46,18 @@ class CartScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Add \$20 for FREE Delivery',
+                      Cart().freeDeliveryString,
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/');
                       },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.black,
+                        shape: RoundedRectangleBorder(),
+                        elevation: 0,
+                      ),
                       child: Text(
                         'Add more items',
                         style: Theme.of(context)
@@ -62,20 +65,21 @@ class CartScreen extends StatelessWidget {
                             .headline5!
                             .copyWith(color: Colors.white),
                       ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
-                        shape: RoundedRectangleBorder(),
-                        elevation: 0,
-                      ),
                     ),
                   ],
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                CartProductCard(product: Product.products[0]),
-                CartProductCard(product: Product.products[2]),
-                  CartProductCard(product: Product.products[1]),
+                SizedBox(
+                  height: 400,
+                  child: ListView.builder(
+                    itemBuilder: (itemBuilder, index) {
+                      return CartProductCard(product: Cart.products[index]);
+                    },
+                    itemCount: Cart.products.length,
+                  ),
+                ),
               ],
             ),
             Column(
@@ -95,7 +99,7 @@ class CartScreen extends StatelessWidget {
                             'Subtotal',
                             style: Theme.of(context).textTheme.headline5,
                           ),
-                          Text('\$5.98',
+                          Text('${Cart().subtotalString}',
                               style: Theme.of(context).textTheme.headline5)
                         ],
                       ),
@@ -109,7 +113,7 @@ class CartScreen extends StatelessWidget {
                             'Delivery fee',
                             style: Theme.of(context).textTheme.headline5,
                           ),
-                          Text('\$2.98',
+                          Text('\$${Cart().deliveryFeeString}',
                               style: Theme.of(context).textTheme.headline5)
                         ],
                       ),
@@ -141,7 +145,7 @@ class CartScreen extends StatelessWidget {
                                   .headline5!
                                   .copyWith(color: Colors.white),
                             ),
-                            Text('\$12.98',
+                            Text('\$${Cart().totalString}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline5!
