@@ -1,5 +1,7 @@
+import 'package:ecommerce_app/blocs/cart/cart_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/widgets/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../models/cart_model.dart';
 import '../../models/product_model.dart';
 
@@ -16,26 +18,34 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Cart'),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
-        child: Container(
-          height: 70,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.white),
-                  onPressed: () {},
-                  child: Text(
-                    'Go to checkout',
-                    style: Theme.of(context).textTheme.headline3,
-                  ))
-            ],
+        appBar: CustomAppBar(title: 'Cart'),
+        bottomNavigationBar: BottomAppBar(
+          color: Colors.black,
+          child: Container(
+            height: 70,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(primary: Colors.white),
+                    onPressed: () {},
+                    child: Text(
+                      'Go to checkout',
+                      style: Theme.of(context).textTheme.headline3,
+                    ))
+              ],
+            ),
           ),
         ),
-      ),
-      body: Padding(
+        body: BlocBuilder<CartBloc, CartState>(
+          builder: (context, state) {
+            if (state is CartLoading) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } 
+            if ( state is CartLoaded) {
+              return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,7 +56,7 @@ class CartScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      Cart().freeDeliveryString,
+                      state.cart.freeDeliveryString,
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     ElevatedButton(
@@ -75,9 +85,9 @@ class CartScreen extends StatelessWidget {
                   height: 400,
                   child: ListView.builder(
                     itemBuilder: (itemBuilder, index) {
-                      return CartProductCard(product: Cart.products[index]);
+                      return CartProductCard(product: state.cart.products[index]);
                     },
-                    itemCount: Cart.products.length,
+                    itemCount: state.cart.products.length,
                   ),
                 ),
               ],
@@ -99,7 +109,7 @@ class CartScreen extends StatelessWidget {
                             'Subtotal',
                             style: Theme.of(context).textTheme.headline5,
                           ),
-                          Text('${Cart().subtotalString}',
+                          Text('${state.cart.subtotalString}',
                               style: Theme.of(context).textTheme.headline5)
                         ],
                       ),
@@ -113,7 +123,7 @@ class CartScreen extends StatelessWidget {
                             'Delivery fee',
                             style: Theme.of(context).textTheme.headline5,
                           ),
-                          Text('\$${Cart().deliveryFeeString}',
+                          Text('\$${state.cart.deliveryFeeString}',
                               style: Theme.of(context).textTheme.headline5)
                         ],
                       ),
@@ -145,7 +155,7 @@ class CartScreen extends StatelessWidget {
                                   .headline5!
                                   .copyWith(color: Colors.white),
                             ),
-                            Text('\$${Cart().totalString}',
+                            Text('\$${state.cart.totalString}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline5!
@@ -160,7 +170,14 @@ class CartScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
+      );
+            }
+            else {
+              return Text('Something went wrong');
+            }
+          },
+
+
+        ));
   }
 }

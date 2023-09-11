@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/blocs/blocs.dart';
+import 'package:ecommerce_app/blocs/cart/cart_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/widgets/widgets.dart';
 import 'package:ecommerce_app/models/product_model.dart';
@@ -40,8 +41,11 @@ class ProductScreen extends StatelessWidget {
                 builder: (context, state) {
                   return IconButton(
                       onPressed: () {
-                        context.read<WishlistBloc>().add(AddWishListProduct(product: product));
-                        final snackBar = SnackBar(content: Text('Added to your wishlist'));
+                        context
+                            .read<WishlistBloc>()
+                            .add(AddWishListProduct(product: product));
+                        final snackBar =
+                            SnackBar(content: Text('Added to your wishlist'));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       icon: Icon(
@@ -50,13 +54,20 @@ class ProductScreen extends StatelessWidget {
                       ));
                 },
               ),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.white),
-                  onPressed: () {},
-                  child: Text(
-                    'Add to cart',
-                    style: Theme.of(context).textTheme.headline3,
-                  ))
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  return ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.white),
+                      onPressed: () {
+                        context.read<CartBloc>().add(CartProductAdded(product));
+                        Navigator.pushNamed(context, '/cart');
+                      },
+                      child: Text(
+                        'Add to cart',
+                        style: Theme.of(context).textTheme.headline3,
+                      ));
+                },
+              )
             ],
           ),
         ),
