@@ -5,8 +5,10 @@ import '../../models/product_model.dart';
 
 class CartProductCard extends StatelessWidget {
   final Product product;
+  final int quantity;
   const CartProductCard({
     required this.product,
+    required this.quantity,
     super.key,
   });
 
@@ -49,7 +51,7 @@ class CartProductCard extends StatelessWidget {
                     context.read<CartBloc>().add(CartProductRemoved(product));
                   }, icon: Icon(Icons.remove_circle)),
                   Text(
-                    '1',
+                    '$quantity',
                     style: Theme.of(context).textTheme.headline5,
                   ),
                   IconButton(onPressed: () {

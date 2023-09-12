@@ -6,7 +6,8 @@ import '/screens/screens.dart';
 import 'blocs/blocs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  Bloc.observer = SimpleBlocObserver();
   runApp(MyApp());
 }
 
