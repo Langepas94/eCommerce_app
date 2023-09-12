@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         title: 'Hello',
         theme: theme(),
         onGenerateRoute: AppRouters.onGenerateRoute,
-        initialRoute: HomeScreen.routeName,
+        initialRoute: SplashScreen.routeName,
         home: HomeScreen(),
       ),
     );
