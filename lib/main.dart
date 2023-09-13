@@ -1,12 +1,15 @@
 import 'package:ecommerce_app/blocs/cart/cart_bloc.dart';
 import 'package:ecommerce_app/config/app_router.dart';
 import 'package:ecommerce_app/config/theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import '/screens/screens.dart';
 import 'blocs/blocs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   Bloc.observer = SimpleBlocObserver();
   runApp(MyApp());
 }
