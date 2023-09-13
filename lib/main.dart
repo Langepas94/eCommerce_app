@@ -7,7 +7,7 @@ import '/screens/screens.dart';
 import 'blocs/blocs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Bloc.observer = SimpleBlocObserver();

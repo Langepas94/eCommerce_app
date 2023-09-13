@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:ecommerce_app/config/app_router.dart';
 import 'package:ecommerce_app/models/category_model.dart';
 import 'package:ecommerce_app/models/models.dart';
+import 'package:ecommerce_app/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/widgets/widgets.dart';
 
@@ -14,6 +16,7 @@ class SplashScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute(
       settings: RouteSettings(name: routeName),
+      fullscreenDialog: false,
       builder: (_) => SplashScreen(),
     );
   }
@@ -21,7 +24,9 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 Timer(Duration(seconds: 2), () { 
-Navigator.pushNamed(context, '/');
+// Navigator.pushNamed(context, '/');
+// Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => HomeScreen()), (route) => false);
 });
     return Scaffold(
       body: Column(
